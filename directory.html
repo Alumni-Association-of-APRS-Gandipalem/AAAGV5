@@ -618,32 +618,38 @@ if(new URLSearchParams(window.location.search).get('join')==='true'){
 }
 
 // Load Approved profiles from Google Sheet
+
 function loadFromSheet() {
   fetch(SCRIPT_URL)
     .then(function(r){ return r.json(); })
     .then(function(res){
       if(res.status === 'success' && res.data && res.data.length) {
         alumni = res.data.map(function(a) {
-  return {
-    name: a.name, batch: a.batch, city: a.city,
-    role: a.role, company: a.company, skills: a.skills,
-    email: a.email, wa: a.wa, li: a.linkedin || a.li || '',
-    mentor: a.mentor === true || String(a.mentor).toLowerCase() === 'yes'
-    committee: false, photo: a.photo, mentor: a.mentor=== true
-  };
-});
+          return {
+            name:      a.name,
+            batch:     a.batch,
+            city:      a.city,
+            role:      a.role,
+            company:   a.company,
+            skills:    a.skills || [],
+            email:     a.email,
+            wa:        a.wa,
+            li:        a.linkedin || a.li || '',
+            committee: false,
+            photo:     a.photo || ''
+          };
+        });
         document.getElementById('totalCount').textContent = alumni.length;
         populateFilters();
         applyFilters();
       }
     })
     .catch(function(){
-      // Sheet load కాకపోతే sample data తో continue
       populateFilters();
       applyFilters();
     });
 }
-
+  
 loadFromSheet();
 </script>
 </body>
