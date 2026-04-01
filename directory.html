@@ -617,8 +617,26 @@ if(new URLSearchParams(window.location.search).get('join')==='true'){
   window.addEventListener('load',function(){setTimeout(openModal,400);});
 }
 
-populateFilters();
-applyFilters();
+// Load Approved profiles from Google Sheet
+function loadFromSheet() {
+  fetch(SCRIPT_URL)
+    .then(function(r){ return r.json(); })
+    .then(function(res){
+      if(res.status === 'success' && res.data && res.data.length) {
+        alumni = res.data;
+        document.getElementById('totalCount').textContent = alumni.length;
+        populateFilters();
+        applyFilters();
+      }
+    })
+    .catch(function(){
+      // Sheet load కాకపోతే sample data తో continue
+      populateFilters();
+      applyFilters();
+    });
+}
+
+loadFromSheet();
 </script>
 </body>
 </html>
