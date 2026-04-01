@@ -629,7 +629,7 @@ function loadFromSheet() {
     role: a.role, company: a.company, skills: a.skills,
     email: a.email, wa: a.wa, li: a.linkedin || a.li || '',
     mentor: a.mentor === true || String(a.mentor).toLowerCase() === 'yes'
-    committee: false, photo: a.photo
+    committee: false, photo: a.photo, mentor: a.mentor=== true
   };
 });
         document.getElementById('totalCount').textContent = alumni.length;
