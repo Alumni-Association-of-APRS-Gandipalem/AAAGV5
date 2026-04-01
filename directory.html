@@ -623,7 +623,15 @@ function loadFromSheet() {
     .then(function(r){ return r.json(); })
     .then(function(res){
       if(res.status === 'success' && res.data && res.data.length) {
-        alumni = res.data;
+        alumni = res.data.map(function(a) {
+  return {
+    name: a.name, batch: a.batch, city: a.city,
+    role: a.role, company: a.company, skills: a.skills,
+    email: a.email, wa: a.wa, li: a.linkedin || a.li || '',
+    mentor: a.mentor === true || a.mentor === 'yes',
+    committee: false, photo: a.photo
+  };
+});
         document.getElementById('totalCount').textContent = alumni.length;
         populateFilters();
         applyFilters();
