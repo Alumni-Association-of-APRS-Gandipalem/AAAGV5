@@ -306,7 +306,7 @@
               <option value="" disabled selected>Select Role</option>
               <option value="Principal">Principal</option>
               <option value="Head Master">Head Master</option>
-              <option value="Teacher">Teacher</option>
+              <option value="Teacher &amp; Principal">Teacher &amp; Principal</option>
               <option value="Drawing Teacher">Drawing Teacher</option>
               <option value="Physical Education Teacher">Physical Education Teacher</option>
               <option value="Non-Teaching Staff">Non-Teaching Staff</option>
@@ -410,8 +410,18 @@ function loadTeachers() {
     .then(function(r){ return r.json(); })
     .then(function(res){
       var teachers = res.teachers || [];
-      var principals = teachers.filter(function(t){ return t.role && t.role.toLowerCase().includes('principal'); });
-      var others     = teachers.filter(function(t){ return !t.role || !t.role.toLowerCase().includes('principal'); });
+     var principals = teachers.filter(function(t){
+  if(!t.role || !t.role.toLowerCase().includes('principal')) return false;
+  var p = t.period || '';
+  return !p.match(/\d{4}\s*[–\-]\s*\d{4}/);
+});
+
+var others = teachers.filter(function(t){
+  if(!t.role) return true;
+  if(!t.role.toLowerCase().includes('principal')) return true;
+  var p = t.period || '';
+  return !!p.match(/\d{4}\s*[–\-]\s*\d{4}/);
+});
 
       var pEl = document.getElementById('principalSection');
       var gEl = document.getElementById('teachersGrid');
