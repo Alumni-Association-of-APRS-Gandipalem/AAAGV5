@@ -635,54 +635,6 @@ function loadFromSheet() {
 }
 
 loadFromSheet();
-  // ── DUPLICATE PROFILE CHECK ──
-function checkDuplicate(email, phone) {
-  var existing = alumni.filter(function(a) {
-    return a.email === email || String(a.wa) === String(phone);
-  });
-  return existing.length > 0;
-}
-
-// Override openModal to check duplicate
-var _originalOpenModal = openModal;
-function openModal() {
-  _originalOpenModal();
-  // Reset form success state
-  document.getElementById('joinForm').style.display = 'block';
-  document.getElementById('formSuccess').classList.remove('show');
-}
-
-// Add duplicate check on email/phone blur
-window.addEventListener('load', function() {
-  var emailField = document.querySelector('#joinForm input[name="email"]');
-  var phoneField = document.querySelector('#joinForm input[name="phone"]');
-  
-  function checkField() {
-    var email = emailField ? emailField.value.trim() : '';
-    var phone = phoneField ? phoneField.value.trim() : '';
-    if(!email && !phone) return;
-    
-    if(checkDuplicate(email, phone)) {
-      var existing = document.getElementById('duplicateWarning');
-      if(!existing) {
-        var warn = document.createElement('div');
-        warn.id = 'duplicateWarning';
-        warn.style.cssText = 'background:#FEF0E6;border:1px solid #F26C1B;border-radius:10px;padding:0.85rem 1rem;font-size:0.78rem;color:#F26C1B;margin-top:0.75rem;';
-        warn.innerHTML = '⚠️ A profile with this email/phone already exists. '
-          + '<strong style="cursor:pointer;text-decoration:underline;" '
-          + 'onclick="document.getElementById(\'duplicateWarning\').style.display=\'none\'">'
-          + 'Click here to update anyway →</strong>';
-        var btn = document.querySelector('#joinForm .form-submit');
-        btn.parentNode.insertBefore(warn, btn);
-      } else {
-        existing.style.display = 'block';
-      }
-    }
-  }
-  
-  if(emailField) emailField.addEventListener('blur', checkField);
-  if(phoneField) phoneField.addEventListener('blur', checkField);
-});
-</script>
+  // </script>
 </body>
 </html>
