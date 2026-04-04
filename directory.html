@@ -635,6 +635,44 @@ function loadFromSheet() {
 }
 
 loadFromSheet();
+  // ── DUPLICATE PROFILE CHECK ──
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    var emailField = document.querySelector('#joinForm input[name="email"]');
+    var phoneField = document.querySelector('#joinForm input[name="phone"]');
+
+    function checkField() {
+      var email = emailField ? emailField.value.trim() : '';
+      var phone = phoneField ? phoneField.value.trim().replace(/\D/g,'') : '';
+      if(!email && !phone) return;
+
+      var found = alumni.filter(function(a) {
+        return (email && a.email === email) ||
+               (phone && String(a.wa).replace(/\D/g,'').endsWith(phone.slice(-10)));
+      });
+
+      var existing = document.getElementById('duplicateWarning');
+      if(found.length > 0) {
+        if(!existing) {
+          var warn = document.createElement('div');
+          warn.id = 'duplicateWarning';
+          warn.style.cssText = 'background:#FEF0E6;border:1.5px solid #F26C1B;border-radius:10px;padding:0.85rem 1rem;font-size:0.78rem;color:#C05000;margin:0.75rem 0;line-height:1.6;';
+          warn.innerHTML = '⚠️ Your profile already exists in the directory.<br/>'
+            + '<strong style="cursor:pointer;text-decoration:underline;color:#F26C1B;" '
+            + 'onclick="document.getElementById(\'duplicateWarning\').remove();">'
+            + 'Click here to update your profile anyway →</strong>';
+          var btn = document.querySelector('#joinForm .form-submit');
+          if(btn) btn.parentNode.insertBefore(warn, btn);
+        }
+      } else {
+        if(existing) existing.remove();
+      }
+    }
+
+    if(emailField) emailField.addEventListener('blur', checkField);
+    if(phoneField) phoneField.addEventListener('blur', checkField);
+  }, 2000);
+});
   // </script>
 </body>
 </html>
