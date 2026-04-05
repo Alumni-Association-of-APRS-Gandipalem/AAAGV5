@@ -454,7 +454,7 @@ var UPCOMING_ACTIVITIES = [
     speakers:  1,
     attendees: 27,
     summary:   "Official launch of AAAG's flagship weekly program. 27 members attended.",
-    photos:    [Session1_health Awareness.jpg]
+    photos:    [Session1_healthAwareness.jpg]
   }
 ];
 
@@ -472,13 +472,15 @@ UPCOMING_SESSIONS = UPCOMING_SESSIONS.filter(function(s){
     var exists = PAST_SESSIONS.some(function(p){ return p.title === s.title; });
     if(!exists) {
       PAST_SESSIONS.unshift({
-        title:   s.title,
-        date:    s.date,
-        speaker: "",
-        summary: s.desc || "",
-        photos:  []
-      });
-    }
+  title:     s.title,
+  date:      s.date,
+  speaker:   "",
+  speakers:  0,
+  attendees: 0,
+  summary:   s.desc || "",
+  photos:    s.photos || []
+});
+      }
     return false; // Remove from upcoming
   }
   return true; // Keep in upcoming
