@@ -366,10 +366,19 @@
       .foot-in  { grid-template-columns:1fr; gap:1.75rem; }
       .foot-btm { flex-direction:column; gap:0.35rem; text-align:center; }
     }
+    .ticker-wrap{background:var(--blue);overflow:hidden;height:30px;display:flex;align-items:center;}
+.ticker{display:flex;animation:tickerScroll 25s linear infinite;white-space:nowrap;}
+.ticker span{font-size:0.72rem;color:rgba(255,255,255,0.9);font-weight:500;}
+@keyframes tickerScroll{from{transform:translateX(100vw);}to{transform:translateX(-100%);}}
   </style>
 </head>
 <body>
 
+  <div class="ticker-wrap">
+  <div class="ticker">
+    <span>📢 Next Maata-Baata: April 11 · Basic Financial Planning · 7PM · Online &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; Launch Session completed — 27 members attended 🎉 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; Join Alumni Directory → &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  </div>
+</div>
 <!-- NAVBAR -->
 <nav>
   <a href="index.html" class="nav-wordmark">
