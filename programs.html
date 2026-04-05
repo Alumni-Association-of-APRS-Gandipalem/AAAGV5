@@ -461,7 +461,28 @@ var PAST_SESSIONS = [
 //  RENDER FUNCTIONS — మార్చవద్దు
 // ═══════════════════════════════════════════════════════════
 
-function renderUpcoming() {
+// Auto move past events to PAST_SESSIONS
+var today = new Date();
+today.setHours(0,0,0,0);
+UPCOMING_SESSIONS = UPCOMING_SESSIONS.filter(function(s){
+  var d = new Date(s.date);
+  if(d < today) {
+    // Auto add to PAST_SESSIONS if not already there
+    var exists = PAST_SESSIONS.some(function(p){ return p.title === s.title; });
+    if(!exists) {
+      PAST_SESSIONS.unshift({
+        title:   s.title,
+        date:    s.date,
+        speaker: "",
+        summary: s.desc || "",
+        photos:  []
+      });
+    }
+    return false; // Remove from upcoming
+  }
+  return true; // Keep in upcoming
+});
+  function renderUpcoming() {
   var grid = document.getElementById('upcomingGrid');
   if(!UPCOMING_SESSIONS.length) { grid.innerHTML='<p style="color:var(--light);font-size:0.85rem;">Sessions will be announced soon.</p>'; return; }
   grid.innerHTML = UPCOMING_SESSIONS.map(function(s, i) {
