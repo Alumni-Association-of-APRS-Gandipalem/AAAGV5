@@ -735,7 +735,18 @@ renderSpotlight();
 loadStats();
 
 function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
-
+window.addEventListener('scroll', function(){
+  var nav = document.querySelector('nav');
+  var ticker = document.querySelector('.ticker-wrap');
+  if(window.scrollY > 30){
+    nav.style.top = '0';
+    if(ticker) ticker.style.display = 'none';
+  } else {
+    nav.style.top = '30px';
+    if(ticker) ticker.style.display = 'flex';
+  }
+});
+  
 // Slideshow
 var currentSlide = 0;
 var slides = document.querySelectorAll('.slide');
