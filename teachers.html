@@ -411,15 +411,16 @@ function loadTeachers() {
     .then(function(res){
       var teachers = res.teachers || [];
      var principals = teachers.filter(function(t){
-  if(!t.role || !t.role.toLowerCase().includes('principal')|| t.role.toLowerCase().includes('teacher')) return false;
-  var p = t.period || '';
+  if(!t.role || !t.role.toLowerCase().includes('principal')) return false;
+  var p = (t.period || '').trim();
+  // End date లేకపోతే current principal
   return !p.match(/\d{4}\s*[–\-]\s*\d{4}/);
 });
 
 var others = teachers.filter(function(t){
-  if(!t.role) return true;
-  if(!t.role.toLowerCase().includes('principal')) return true;
-  var p = t.period || '';
+  if(!t.role || !t.role.toLowerCase().includes('principal')) return true;
+  var p = (t.period || '').trim();
+  // End date ఉంటే teachers grid లో
   return !!p.match(/\d{4}\s*[–\-]\s*\d{4}/);
 });
 
