@@ -410,18 +410,22 @@ function loadTeachers() {
     .then(function(r){ return r.json(); })
     .then(function(res){
       var teachers = res.teachers || [];
-     var principals = teachers.filter(function(t){
+  var principals = teachers.filter(function(t){
   if(!t.role || !t.role.toLowerCase().includes('principal')) return false;
   var p = (t.period || '').trim();
-  // End date లేకపోతే current principal
-  return !p.match(/\d{4}\s*[–\-]\s*\d{4}/);
+  // Period లో " - " లేదా "–" తో end date ఉంటే past principal
+  var hasEndDate = p.includes(' - ') || p.includes('–') || p.includes('-');
+  var hasYear = p.match(/\d{4}/g);
+  // Two or more years = has end date = past
+  return !(hasYear && hasYear.length >= 2);
 });
 
 var others = teachers.filter(function(t){
   if(!t.role || !t.role.toLowerCase().includes('principal')) return true;
   var p = (t.period || '').trim();
-  // End date ఉంటే teachers grid లో
-  return !!p.match(/\d{4}\s*[–\-]\s*\d{4}/);
+  var hasYear = p.match(/\d{4}/g);
+  // Two or more years = past principal → grid లో
+  return hasYear && hasYear.length >= 2;
 });
 
       var pEl = document.getElementById('principalSection');
