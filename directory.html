@@ -158,7 +158,8 @@
     .pc-company { font-size:0.7rem; color:var(--mid); font-weight:400; }
     .pc-skills  { display:flex; gap:0.25rem; flex-wrap:wrap; margin-top:0.1rem; }
     .pc-skill   { background:var(--off); color:var(--mid); border:1px solid var(--border); font-size:0.58rem; font-weight:500; padding:0.12rem 0.42rem; border-radius:50px; }
-
+    (a.bio ? '<p style="font-size:0.7rem;color:var(--mid);font-style:italic;margin-top:0.2rem;">'+a.bio+'</p>' : '')
+    
     /* Right — icons vertical */
     .pc-right {
       flex-shrink:0; width:44px;
@@ -361,7 +362,7 @@
   </div>
 
   <div class="cta-sec">
-    <h2>Are you an alumnus of APR School Gandipalem?</h2>
+    <h2>Are you an alumnus of AP Residential School Gandipalem?</h2>
     <p>Join the Alumni Directory and become part of a growing network across batches and professions.</p>
     <button class="btn-orange" onclick="openModal()">
       Join Now
