@@ -411,7 +411,7 @@ function loadTeachers() {
     .then(function(res){
       var teachers = res.teachers || [];
      var principals = teachers.filter(function(t){
-  if(!t.role || !t.role.toLowerCase().includes('principal')) return false;
+  if(!t.role || !t.role.toLowerCase().includes('principal')|| t.role.toLowerCase().includes('teacher')) return false;
   var p = t.period || '';
   return !p.match(/\d{4}\s*[–\-]\s*\d{4}/);
 });
