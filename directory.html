@@ -495,7 +495,7 @@ function renderCard(a, i) {
           <span class="pc-city">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             ${a.city}
-            +(a.nri==='yes' ? '<span style="background:#E3F2FD;color:#1565C0;font-size:0.55rem;font-weight:700;padding:0.1rem 0.45rem;border-radius:50px;margin-left:4px;">🌍 NRI</span>' : '')
+            ${a.city}${a.nri==='yes' ? ' <span style="background:#E3F2FD;color:#1565C0;font-size:0.55rem;font-weight:700;padding:0.1rem 0.45rem;border-radius:50px;margin-left:4px;">🌍 NRI</span>' : ''}
           </span>
         </div>
       </div>
