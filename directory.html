@@ -518,12 +518,13 @@ function applyFilters() {
   var q=document.getElementById('searchInput').value.toLowerCase();
   var batch=document.getElementById('batchFilter').value;
   var city=document.getElementById('cityFilter').value;
+  var nri = document.getElementById('nriFilter') ? document.getElementById('nriFilter').value : '';
   var prof=document.getElementById('profFilter').value;
   var sort=document.getElementById('sortBy').value;
 
   var list=alumni.filter(function(a){
     var mq=!q||a.name.toLowerCase().includes(q)||a.role.toLowerCase().includes(q)||(a.company&&a.company.toLowerCase().includes(q))||a.skills.some(function(s){return s.toLowerCase().includes(q);});
-    return mq&&(!batch||a.batch==batch)&&(!city||a.city===city)&&(!prof||a.role===prof);
+    return mq&&(!batch||a.batch==batch)&&(!city||a.city===city)&&(!nri||a.nri===nri)&&(!prof||a.role===prof);
   });
 
   if(sort==='name')       list.sort(function(a,b){return a.name.localeCompare(b.name);});
