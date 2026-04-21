@@ -677,9 +677,7 @@ function renderSpotlight() {
   if(!el) return;
   el.innerHTML = SPOTLIGHT.map(function(a){
     var ini = a.name.split(' ').map(function(w){return w[0];}).slice(0,2).join('').toUpperCase();
-    var av  = a.photo
-      ? '<img src="'+a.photo+'" alt="'+a.name+'" onerror="this.style.display=\'none\'"/>'+ini
-      : ini;
+    var av = a.photo ? '<img src="'+a.photo+'" alt="'+a.name+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/>' : ini;
     return '<div class="spot-card">'
       +'<div class="spot-head">'
       +'<div class="spot-av">'+av+'</div>'
